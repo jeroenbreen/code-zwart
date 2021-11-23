@@ -4,7 +4,7 @@ import { computed } from "vue";
 import { useStore } from "vuex";
 
 export default {
-  name: "RGraph",
+  name: "Infections",
   components: { apexchart: VueApexCharts },
   props: {},
   setup() {
@@ -13,8 +13,14 @@ export default {
     const graph = computed(() => {
       return {
         options: {
+          grid: {
+            padding: {
+              left: 0,
+              right: 0,
+            },
+          },
           chart: {
-            id: "r",
+            id: "infections",
             animations: {
               enabled: false,
             },
@@ -22,36 +28,28 @@ export default {
               show: false,
             },
           },
-          grid: {
-            show: false,
-            padding: {
-              left: 0,
-              right: 0,
-            },
-          },
           xaxis: {
-            categories: store.state.r.map((r) => {
-              return r.label;
+            categories: store.getters.timeline.map((o) => {
+              const date = o.date.split("-");
+              return date[2] + "/" + date[1];
             }),
-          },
-          tooltip: {
-            enabled: false,
+            tickAmount: 5,
           },
           yaxis: {
-            min: 0,
-            max: 1.5,
+            min: 15000,
+            max: 30000,
             labels: {
               offsetX: -10,
             },
           },
-          stroke: {
-            curve: "smooth",
-          },
+            stroke: {
+                curve: "smooth",
+            },
         },
         series: [
           {
-            name: "Reproductie-getal",
-            data: store.state.r.map((r) => r.r),
+            name: "Infecties",
+            data: store.getters.timeline.map((o) => o.infections),
           },
         ],
       };
@@ -62,10 +60,11 @@ export default {
 </script>
 
 <template>
-  <div class="Rgraph">
+  <div class="Occupation">
+    <h3>Infecties</h3>
     <apexchart
       width="600"
-      height="250"
+      height="300"
       type="line"
       :options="graph.options"
       :series="graph.series"
@@ -74,6 +73,6 @@ export default {
 </template>
 
 <style lang="scss">
-.Rgraph {
+.Occupation {
 }
 </style>

@@ -3,49 +3,72 @@ import VueApexCharts from "vue3-apexcharts";
 import { computed } from "vue";
 import { useStore } from "vuex";
 
-
 export default {
-    name: "Occupation",
-    components: { apexchart: VueApexCharts, },
-    props: {},
-    setup() {
-        const store = useStore();
+  name: "Occupation",
+  components: { apexchart: VueApexCharts },
+  props: {},
+  setup() {
+    const store = useStore();
 
-        const graph = computed(() => {
-            return {
-                options: {
-                    chart: {
-                        id: "ic-bezetting",
-                        toolbar: {
-                            show: false
-                        }
-                    },
-                    xaxis: {
-                        categories: store.getters.occupation.map(o => o.date),
-                    },
-                },
-                series: [
-                    {
-                        name: "IC bezetting",
-                        data: store.getters.occupation.map(o => o.occupation),
-                    },
-                ]
-            }
-        })
-        return { graph }
-    },
+    const graph = computed(() => {
+      return {
+        options: {
+          grid: {
+            padding: {
+              left: 0,
+              right: 0,
+            },
+          },
+          chart: {
+            id: "ic-bezetting",
+            animations: {
+              enabled: false,
+            },
+            toolbar: {
+              show: false,
+            },
+          },
+          xaxis: {
+            categories: store.getters.timeline.map((o) => {
+              const date = o.date.split("-");
+              return date[2] + "/" + date[1];
+            }),
+            tickAmount: 5,
+          },
+          yaxis: {
+            labels: {
+              offsetX: -10,
+            },
+          },
+        },
+        series: [
+          {
+            name: "IC bezetting",
+            data: store.getters.timeline.map((o) => o.occupation),
+          },
+            {
+                name: "IC instroom",
+                data: store.getters.timeline.map((o) => o.icIn),
+            },
+        ],
+      };
+    });
+    return { graph };
+  },
 };
 </script>
 
 <template>
-    <div class="Occupation">
-        <apexchart
-            width="500"
-            type="line"
-            :options="graph.options"
-            :series="graph.series"
-        ></apexchart>
-    </div>
+  <div class="Occupation">
+    <h3>IC-bezetting</h3>
+    <apexchart
+      width="600"
+      height="300"
+      type="line"
+      :options="graph.options"
+      :series="graph.series"
+    ></apexchart>
+  </div>
 </template>
 
 <style lang="scss">
