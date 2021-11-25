@@ -38,8 +38,8 @@ export default {
             enabled: false,
           },
           yaxis: {
-            min: 0,
-            max: 1.5,
+            min: 0.5,
+            max: 1.3,
             labels: {
               offsetX: -10,
             },
@@ -65,7 +65,7 @@ export default {
   <div class="Rgraph">
     <apexchart
       width="600"
-      height="250"
+      height="200"
       type="line"
       :options="graph.options"
       :series="graph.series"

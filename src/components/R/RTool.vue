@@ -1,5 +1,5 @@
 <script>
-import { ref, watch } from "vue";
+import {computed, ref, watch} from "vue";
 import { useStore } from "vuex";
 
 export default {
@@ -25,15 +25,19 @@ export default {
         store.commit("updateR", { index: props.i, value });
       }
     );
+
     return {
       value,
+        width: computed(() => "calc(100% / " + store.state.weeksModeled + ")")
     };
   },
 };
 </script>
 
 <template>
-  <div class="RTool">
+  <div
+      :style="{'width': width}"
+      class="RTool">
     <input @update="update" v-model="value" type="number" step="0.01" />
   </div>
 </template>
@@ -42,7 +46,7 @@ export default {
 .RTool {
   margin-left: -1px;
   input {
-    width: 110px;
+    width: 100%;
     border-radius: 0;
   }
 }

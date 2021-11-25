@@ -36,7 +36,7 @@ export default {
             tickAmount: 5,
           },
           yaxis: {
-            min: 15000,
+            min: 0,
             max: 30000,
             labels: {
               offsetX: -10,
