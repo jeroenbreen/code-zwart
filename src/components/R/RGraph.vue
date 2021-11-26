@@ -64,8 +64,8 @@ export default {
 <template>
   <div class="Rgraph">
     <apexchart
-      width="600"
-      height="200"
+      width="1000"
+      height="250"
       type="line"
       :options="graph.options"
       :series="graph.series"

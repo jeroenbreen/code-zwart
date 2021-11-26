@@ -4,7 +4,7 @@ import { addDays, format } from "date-fns";
 export default createStore({
   state: {
     weeksSource: 10,
-    weeksModeled: 8,
+    weeksModeled: 16,
     // occupation at 15/10
     // todo make this variable
     occupationReference: 137,

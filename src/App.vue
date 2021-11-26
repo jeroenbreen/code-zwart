@@ -19,7 +19,7 @@ export default {
     setup() {
         const store = useStore();
         const loaded = ref(false);
-        const expectedR = [1.1, 1.00, 0.95, 0.95, 0.95, 0.95, 0.95, 0.95, 0.95, 0.95, 0.95, 0.95, 0.95, 0.95];
+        const expectedR = [1, 0.9, 0.9, 0.9, 1.2, 1, 0.95, 0.95, 0.95, 0.95, 0.95, 0.95, 0.95, 0.95, 0.95];
 
         getJson("https://raw.githubusercontent.com/mzelst/covid-19/master/data/municipality-totals.csv").then((data) => {
             const days = store.state.weeksSource * 7;

@@ -63,7 +63,7 @@ export default {
   <div class="Occupation">
     <h3>Infecties</h3>
     <apexchart
-      width="600"
+      width="1000"
       height="300"
       type="line"
       :options="graph.options"
