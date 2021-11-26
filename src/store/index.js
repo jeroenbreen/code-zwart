@@ -4,21 +4,20 @@ import { addDays, format } from "date-fns";
 export default createStore({
   state: {
     weeksSource: 10,
-    weeksModeled: 16,
+    weeksModeled: 8,
     // occupation at 15/10
     // todo make this variable
     occupationReference: 137,
     source: [],
-    r: [],
+    rTimeline: [],
     daysBeforeHospitalization: 14,
     lengthOfStay: 16,
     icPercentage: 0.3,
-    week: 0,
   },
   getters: {
     timeline(state) {
       const getR = (weekIndex) => {
-        return state.r[weekIndex].r
+        return state.rTimeline[weekIndex].r
       };
 
       const getDate = (i) => {
@@ -32,7 +31,7 @@ export default createStore({
           if (i < state.source.length) {
             timeline.push(state.source[i]);
           } else {
-            const weekIndex = Math.floor((i - state.source.length) / 7);
+            const weekIndex = Math.floor(state.weeksSource + (i - state.source.length) / 7);
             const r = getR(weekIndex);
             const growthPerWeek = Math.pow(r, 7/4);
             const infectionsPreviousWeek = timeline[i - 7].infections;
@@ -100,7 +99,7 @@ export default createStore({
       state[payload.key] = payload.value;
     },
     updateR(state, payload) {
-      const unMeasured = state.r.filter((r) => !r.measured);
+      const unMeasured = state.rTimeline.filter((r) => !r.measured);
       const item = unMeasured[payload.index];
       item.r = payload.value;
     },

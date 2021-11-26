@@ -1,53 +1,63 @@
 <script>
-import {computed, ref, watch} from "vue";
-import { useStore } from "vuex";
+import { ref, watch} from "vue";
+import {useStore} from "vuex";
 
 export default {
-  name: "RTool",
-  components: {},
-  props: {
-    r: {
-      type: Object,
-      required: true,
+    name: "RTool",
+    components: {},
+    props: {
+        r: {
+            type: Object,
+            required: true,
+        },
+        i: {
+            type: Number,
+            required: true,
+        },
     },
-    i: {
-      type: Number,
-      required: true,
+    setup(props) {
+        const store = useStore();
+        const value = ref(props.r.r);
+
+        watch(
+            () => value.value,
+            (value) => {
+                store.commit("updateR", {index: props.i, value});
+            }
+        );
+
+        return {
+            value,
+        };
     },
-  },
-  setup(props) {
-    const store = useStore();
-    const value = ref(props.r.r);
-
-    watch(
-      () => value.value,
-      (value) => {
-        store.commit("updateR", { index: props.i, value });
-      }
-    );
-
-    return {
-      value,
-        width: computed(() => "calc(100% / " + store.state.weeksModeled + ")")
-    };
-  },
 };
 </script>
 
 <template>
-  <div
-      :style="{'width': width}"
-      class="RTool">
-    <input @update="update" v-model="value" type="number" step="0.01" />
-  </div>
+    <div class="RTool">
+        <div class="RTool__label">
+            {{r.date}}
+        </div>
+        <input @update="update" v-model="value" type="number" step="0.01"/>
+    </div>
 </template>
 
 <style lang="scss">
 .RTool {
-  margin-left: -1px;
-  input {
-    width: 100%;
-    border-radius: 0;
-  }
+    width: 130px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+
+    &__label {
+        margin-right: 4px;
+        font-size: 10px;
+        white-space: nowrap;
+    }
+
+    input {
+        width: 50px;
+        border-radius: 0;
+    }
 }
 </style>

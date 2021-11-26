@@ -1,9 +1,10 @@
 <script>
 import RGraph from "./RGraph";
 import RTools from "./RTools";
+
 export default {
   name: "R",
-  components: { RTools, RGraph },
+  components: { RGraph, RTools },
   props: {},
   setup() {
     return {};

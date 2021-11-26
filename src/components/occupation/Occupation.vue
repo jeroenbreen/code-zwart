@@ -40,6 +40,14 @@ export default {
                             offsetX: -10,
                         },
                     },
+                    annotations: {
+                        yaxis: [
+                            {
+                                y: 650,
+                                borderColor: '#000',
+                            }
+                        ]
+                    }
                 },
                 series: [
                     {
