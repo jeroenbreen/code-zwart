@@ -62,6 +62,10 @@ export default {
                         name: "IC uitstroom",
                         data: store.getters.timeline.map((o) => o.icOut),
                     },
+                    {
+                        name: "Werkelijke bezetting",
+                        data: store.state.realOccupation.map((o) => o.occupation),
+                    },
                 ],
             };
         });

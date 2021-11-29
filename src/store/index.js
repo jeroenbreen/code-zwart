@@ -9,6 +9,7 @@ export default createStore({
     // todo make this variable
     occupationReference: 137,
     source: [],
+    realOccupation: [],
     rTimeline: [],
     daysBeforeHospitalization: 14,
     lengthOfStay: 16,

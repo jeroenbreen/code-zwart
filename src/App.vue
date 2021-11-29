@@ -23,11 +23,44 @@ export default {
             const days = store.state.weeksSource * 7;
             const timeline = getTimeline(data, days);
             const rTimeline = getRTimeline(timeline, store.state.weeksModeled);
-            console.log(rTimeline);
             store.commit("setProperty", {key: "source", value: timeline});
             store.commit("setProperty", {key: "rTimeline", value: rTimeline});
             loaded.value = true;
+            loadOccupation();
         })
+
+        const loadOccupation = () => {
+            getJson("https://raw.githubusercontent.com/mzelst/covid-19/master/data/lcps_by_day.csv").then((data) => {
+                const realOccupation = [];
+                const timeline = store.getters.timeline;
+                for (const day of timeline) {
+                    const item = data.find(d => d.date === day.date);
+                    if (item) {
+                        realOccupation.push({
+                            date: day.date,
+                            occupation: Number(item.IC_Bedden_COVID)
+                        });
+                    } else {
+                        realOccupation.push({
+                            date: day.date,
+                            occupation: 0
+                        });
+                    }
+                }
+                // strip values
+                for (let i = realOccupation.length - 1; i > 0; i--) {
+                    const item = realOccupation[i];
+                    if (item.occupation === 0) {
+                        realOccupation.splice(i, 1);
+                    } else {
+                        break;
+                    }
+                }
+                store.commit("setProperty", {key: "realOccupation", value: realOccupation});
+            })
+        }
+
+
 
         return {
             loaded
