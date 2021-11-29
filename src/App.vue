@@ -57,7 +57,16 @@ export default {
                     }
                 }
                 store.commit("setProperty", {key: "realOccupation", value: realOccupation});
+                setOccupationReference(data, timeline[0].date);
             })
+        }
+
+        const setOccupationReference = (data, date) => {
+            const item = data.find(d => d.date === date);
+            if (item) {
+                const occupationReference = Number(item.IC_Bedden_COVID);
+                store.commit("setProperty", {key: "occupationReference", value: occupationReference});
+            }
         }
 
 

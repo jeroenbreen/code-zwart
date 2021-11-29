@@ -36,7 +36,7 @@ export default {
                         }),
                     },
                     tooltip: {
-                        enabled: false,
+                        // enabled: false,
                     },
                     yaxis: {
                         min: 0.75,

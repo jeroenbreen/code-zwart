@@ -5,9 +5,7 @@ export default createStore({
   state: {
     weeksSource: 10,
     weeksModeled: 8,
-    // occupation at 15/10
-    // todo make this variable
-    occupationReference: 137,
+    occupationReference: 0,
     source: [],
     realOccupation: [],
     rTimeline: [],
