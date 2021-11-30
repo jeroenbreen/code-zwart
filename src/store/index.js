@@ -3,8 +3,9 @@ import { addDays, format } from "date-fns";
 
 export default createStore({
   state: {
+    todayLabel: "",
     weeksSource: 24,
-    weeksModeled: 8,
+    weeksModeled: 12,
     occupationReference: 0,
     source: [],
     realOccupation: [],

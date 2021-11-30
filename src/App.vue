@@ -6,6 +6,7 @@ import {useStore} from "vuex";
 import Infections from "./components/infections/Infections";
 import { getJson, getTimeline, getRTimeline } from "@/utils/csv";
 import { ref } from "vue";
+import {dateToLabel} from "./utils/date";
 
 export default {
     name: "App",
@@ -22,6 +23,8 @@ export default {
         getJson("https://raw.githubusercontent.com/mzelst/covid-19/master/data/municipality-totals.csv").then((data) => {
             const days = store.state.weeksSource * 7;
             const timeline = getTimeline(data, days);
+            const todayLabel = dateToLabel(timeline[timeline.length - 1].date);
+            store.commit("setProperty", {key: "todayLabel", value: todayLabel});
             const rTimeline = getRTimeline(timeline, store.state.weeksModeled);
             store.commit("setProperty", {key: "source", value: timeline});
             store.commit("setProperty", {key: "rTimeline", value: rTimeline});

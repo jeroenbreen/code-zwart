@@ -48,6 +48,41 @@ export default {
                                 borderColor: '#000',
                                 fillColor: '#000'
                             }
+                        ],
+                        xaxis: [
+                            // {
+                            //     x: "05/08",
+                            //     borderColor: '#000',
+                            //     label: {
+                            //         style: {
+                            //             color: '#008ffb',
+                            //         },
+                            //         text: 'Overschatting model Dansen met Janssen',
+                            //         orientation: 'horizontal',
+                            //     }
+                            // },
+                            {
+                                x: "20/08",
+                                x2: "27/09",
+                                borderColor: "#000",
+                                label: {
+                                    style: {
+                                        color: '#ff6178',
+                                    },
+                                    text: 'Verlaat effect Dansen met Janssen',
+                                    // orientation: 'horizontal',
+                                }
+                            },
+                            {
+                                x: store.state.todayLabel,
+                                borderColor: '#000',
+                                label: {
+                                    style: {
+                                        color: '#000',
+                                    },
+                                    text: 'Heden'
+                                }
+                            }
                         ]
                     }
                 },
@@ -81,7 +116,7 @@ export default {
         <h3>IC-bezetting</h3>
         <apexchart
             width="1000"
-            height="300"
+            height="400"
             type="line"
             :options="graph.options"
             :series="graph.series"

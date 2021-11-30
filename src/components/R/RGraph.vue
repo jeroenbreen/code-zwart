@@ -2,6 +2,7 @@
 import VueApexCharts from "vue3-apexcharts";
 import {computed} from "vue";
 import {useStore} from "vuex";
+import {dateToLabel} from "../../utils/date";
 // import { getWeek } from "date-fns";
 
 export default {
@@ -32,7 +33,7 @@ export default {
                     },
                     xaxis: {
                         categories: store.state.rTimeline.map((w) => {
-                            return w.date;
+                            return dateToLabel(w.date);
                         }),
                     },
                     tooltip: {
@@ -53,6 +54,18 @@ export default {
                             {
                                 y: 1,
                                 borderColor: '#000',
+                            }
+                        ],
+                        xaxis: [
+                            {
+                                x: store.state.todayLabel,
+                                borderColor: '#000',
+                                label: {
+                                    style: {
+                                        color: '#000',
+                                    },
+                                    text: 'Heden'
+                                }
                             }
                         ]
                     }
