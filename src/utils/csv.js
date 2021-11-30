@@ -80,7 +80,7 @@ export const getRTimeline = (timeline, weeksModeled) => {
         const d = format(addDays(new Date(referenceDate), (i + 1) * 7), "yyyy-MM-dd");
         rTimeline.push({
             date: d,
-            r: 0.95,
+            r: 0.9,
             measured: false
         })
     }

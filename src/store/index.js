@@ -3,13 +3,13 @@ import { addDays, format } from "date-fns";
 
 export default createStore({
   state: {
-    weeksSource: 10,
+    weeksSource: 24,
     weeksModeled: 8,
     occupationReference: 0,
     source: [],
     realOccupation: [],
     rTimeline: [],
-    daysBeforeHospitalization: 14,
+    daysBeforeHospitalization: 12,
     lengthOfStay: 16,
     icPercentage: 0.3,
   },
@@ -78,7 +78,7 @@ export default createStore({
       const startingDay = state.daysBeforeHospitalization + state.lengthOfStay;
       const expandedTimeline = getExpandedTimeline();
 
-      for (let i = 0; i < (7 * state.weeksModeled + startingDay); i++) {
+      for (let i = 0; i < (7 * (state.weeksModeled + state.weeksSource) - startingDay); i++) {
         const item = {};
         const currentDayIndex = startingDay + i;
         const icIn = getIcIn(currentDayIndex);

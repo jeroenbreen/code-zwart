@@ -10,7 +10,7 @@ export default {
   setup() {
     const store = useStore();
 
-    const graph = computed(() => {
+      const graph = computed(() => {
       return {
         options: {
           grid: {

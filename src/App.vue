@@ -41,6 +41,7 @@ export default {
                             occupation: Number(item.IC_Bedden_COVID)
                         });
                     } else {
+                        // console.log("not found", day.date);
                         realOccupation.push({
                             date: day.date,
                             occupation: 0

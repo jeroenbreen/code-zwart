@@ -44,26 +44,28 @@ export default {
                         yaxis: [
                             {
                                 y: 650,
+                                y2: 2500,
                                 borderColor: '#000',
+                                fillColor: '#000'
                             }
                         ]
                     }
                 },
                 series: [
                     {
-                        name: "IC bezetting",
+                        name: "IC bezetting [model]",
                         data: store.getters.timeline.map((o) => o.occupation),
                     },
                     {
-                        name: "IC instroom",
+                        name: "IC instroom [model]",
                         data: store.getters.timeline.map((o) => o.icIn),
                     },
                     {
-                        name: "IC uitstroom",
+                        name: "IC uitstroom [model]",
                         data: store.getters.timeline.map((o) => o.icOut),
                     },
                     {
-                        name: "Werkelijke bezetting",
+                        name: "IC bezetting [werkelijk]",
                         data: store.state.realOccupation.map((o) => o.occupation),
                     },
                 ],
