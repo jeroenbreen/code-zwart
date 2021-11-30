@@ -5,7 +5,7 @@ export default createStore({
   state: {
     todayLabel: "",
     weeksSource: 24,
-    weeksModeled: 12,
+    weeksModeled: 6,
     occupationReference: 0,
     sourceTimeline: [],
     realOccupation: [],

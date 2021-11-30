@@ -40,8 +40,8 @@ export default {
                         // enabled: false,
                     },
                     yaxis: {
-                        min: 0.75,
-                        max: 1.3,
+                        min: 0.6,
+                        max: 2,
                         labels: {
                             offsetX: -10,
                         },
