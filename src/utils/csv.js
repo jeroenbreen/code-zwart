@@ -21,7 +21,7 @@ export const getJson = (url) => {
     })
 }
 
-export const getTimeline = (json, days) => {
+export const getSourceTimeline = (json, days) => {
     let timeline = [];
     let previousInfections = 0;
     const nl = json[0];

@@ -4,7 +4,7 @@ import R from "./components/R/R";
 import Occupation from "./components/occupation/Occupation";
 import {useStore} from "vuex";
 import Infections from "./components/infections/Infections";
-import { getJson, getTimeline, getRTimeline } from "@/utils/csv";
+import { getJson, getSourceTimeline, getRTimeline } from "@/utils/csv";
 import { ref } from "vue";
 import {dateToLabel} from "./utils/date";
 
@@ -22,11 +22,11 @@ export default {
 
         getJson("https://raw.githubusercontent.com/mzelst/covid-19/master/data/municipality-totals.csv").then((data) => {
             const days = store.state.weeksSource * 7;
-            const timeline = getTimeline(data, days);
-            const todayLabel = dateToLabel(timeline[timeline.length - 1].date);
+            const sourceTimeline = getSourceTimeline(data, days);
+            const todayLabel = dateToLabel(sourceTimeline[sourceTimeline.length - 1].date);
             store.commit("setProperty", {key: "todayLabel", value: todayLabel});
-            const rTimeline = getRTimeline(timeline, store.state.weeksModeled);
-            store.commit("setProperty", {key: "source", value: timeline});
+            const rTimeline = getRTimeline(sourceTimeline, store.state.weeksModeled);
+            store.commit("setProperty", {key: "sourceTimeline", value: sourceTimeline});
             store.commit("setProperty", {key: "rTimeline", value: rTimeline});
             loaded.value = true;
             loadOccupation();

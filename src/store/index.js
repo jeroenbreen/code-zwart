@@ -7,7 +7,7 @@ export default createStore({
     weeksSource: 24,
     weeksModeled: 12,
     occupationReference: 0,
-    source: [],
+    sourceTimeline: [],
     realOccupation: [],
     rTimeline: [],
     daysBeforeHospitalization: 12,
@@ -21,17 +21,17 @@ export default createStore({
       };
 
       const getDate = (i) => {
-        const date = addDays(new Date(state.source[0].date), i);
+        const date = addDays(new Date(state.sourceTimeline[0].date), i);
         return format(date, "yyyy-MM-dd");
       };
 
       const getExpandedTimeline = () => {
         const timeline = [];
-        for (let i = 0; i < state.source.length + (7 * state.weeksModeled); i++) {
-          if (i < state.source.length) {
-            timeline.push(state.source[i]);
+        for (let i = 0; i < state.sourceTimeline.length + (7 * state.weeksModeled); i++) {
+          if (i < state.sourceTimeline.length) {
+            timeline.push(state.sourceTimeline[i]);
           } else {
-            const weekIndex = Math.floor(state.weeksSource + (i - state.source.length) / 7);
+            const weekIndex = Math.floor(state.weeksSource + (i - state.sourceTimeline.length) / 7);
             const r = getR(weekIndex);
             const growthPerWeek = Math.pow(r, 7/4);
             const infectionsPreviousWeek = timeline[i - 7].infections;
