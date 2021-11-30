@@ -60,20 +60,19 @@ export default {
 <template>
     <div class="Tools">
         <div class="Tools__set">
-            <div class="Tools__label">Weken gemodelleerd</div>
-            <input v-model="weeksModeled" type="number" min="0"/>
-        </div>
-        <div class="Tools__set">
             <div class="Tools__label">Dagen tot IC opname</div>
-            <input v-model="daysBeforeHospitalization" type="number" min="0"/>
+<!--            <input v-model="daysBeforeHospitalization" type="number" min="0"/>-->
+            {{daysBeforeHospitalization}}
         </div>
         <div class="Tools__set">
             <div class="Tools__label">Ligduur</div>
-            <input v-model="lengthOfStay" type="number" min="0"/>
+<!--            <input v-model="lengthOfStay" type="number" min="0"/>-->
+            {{lengthOfStay}}
         </div>
         <div class="Tools__set">
             <div class="Tools__label">Percentage besmettingen naar IC</div>
-            <input v-model="icPercentage" type="number" step="0.01" min="0"/>
+<!--            <input v-model="icPercentage" type="number" step="0.01" min="0"/>-->
+            {{icPercentage}}
         </div>
     </div>
 </template>
