@@ -12,7 +12,7 @@ export default createStore({
         rTimeline: [],
         daysBeforeHospitalization: 12,
         lengthOfStay: 16,
-        icPercentage: 0.3,
+        icPercentage: 2,
     },
     getters: {
         timeline(state) {
