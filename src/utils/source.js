@@ -2,6 +2,33 @@ import axios from "axios";
 import csvToJson from 'csvtojson';
 import {addDays, format} from "date-fns";
 
+export const aggregate = (data) => {
+    const timeline = [];
+
+    const hasRightAgegroup = (string) => {
+        const first = Number(string[0]);
+        return first >= 4;
+    }
+
+    const getDay = (date) => {
+        return timeline.find(d => d.date === date);
+    }
+
+
+    for (const item of data) {
+        if (hasRightAgegroup(item.age_group)) {
+            let day = getDay(item.date);
+            if (!day) {
+                day = { date: item.date, cases: 0 };
+                timeline.push(day);
+            }
+            day.cases += Number(item.cases);
+        }
+    }
+
+    return timeline;
+}
+
 export const getJson = (url) => {
     return new Promise((resolve, reject) => {
         axios.get(url,{ responseType: 'blob',})

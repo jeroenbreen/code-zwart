@@ -4,10 +4,10 @@ import R from "./components/R/R";
 import Occupation from "./components/occupation/Occupation";
 import {useStore} from "vuex";
 import Infections from "./components/infections/Infections";
-import { getJson, getSourceTimeline, getRTimeline } from "@/utils/csv";
+import { getJson, aggregate } from "@/utils/source";
 import { ref } from "vue";
-import {dateToLabel} from "./utils/date";
-import { differenceInDays } from "date-fns";
+// import {dateToLabel} from "./utils/date";
+// import { differenceInDays } from "date-fns";
 
 export default {
     name: "App",
@@ -20,6 +20,7 @@ export default {
     setup() {
         const store = useStore();
         const loaded = ref(false);
+        console.log(store);
 
         const getToday = (data) => {
             const nl = data[0];
@@ -29,6 +30,11 @@ export default {
             }
             return date;
         }
+
+        getJson("https://raw.githubusercontent.com/mzelst/covid-19/master/data-dashboards/cases_ggd_agegroups.csv").then((data) => {
+            const agg = aggregate(data);
+            console.log(agg);
+        })
 
         getJson("https://raw.githubusercontent.com/mzelst/covid-19/master/data/municipality-totals.csv").then((data) => {
             const today = getToday(data);
