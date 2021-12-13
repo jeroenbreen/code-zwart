@@ -67,7 +67,6 @@ export const getRTimeline = (timeline, weeksModeled) => {
     for (const week of rTimeline) {
         if (weekCounter === 0) {
             week.r = null;
-            week.date = "";
         } else {
             const growth = week.infections / rTimeline[weekCounter - 1].infections;
             week.r = Math.round(Math.pow(growth, (4 / 7)) * 100) / 100;

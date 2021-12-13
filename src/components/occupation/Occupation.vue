@@ -2,6 +2,7 @@
 import VueApexCharts from "vue3-apexcharts";
 import {computed} from "vue";
 import {useStore} from "vuex";
+import {dateToLabel} from "../../utils/date";
 
 export default {
     name: "Occupation",
@@ -29,10 +30,7 @@ export default {
                         },
                     },
                     xaxis: {
-                        categories: store.getters.timeline.map((o) => {
-                            const date = o.date.split("-");
-                            return date[2] + "/" + date[1];
-                        }),
+                        categories: store.getters.timeline.map((o) => dateToLabel(o.date)),
                         tickAmount: 5,
                     },
                     yaxis: {
@@ -50,26 +48,26 @@ export default {
                             }
                         ],
                         xaxis: [
-                            // {
-                            //     x: "05/08",
-                            //     borderColor: '#000',
-                            //     label: {
-                            //         style: {
-                            //             color: '#008ffb',
-                            //         },
-                            //         text: 'Overschatting model Dansen met Janssen',
-                            //         orientation: 'horizontal',
-                            //     }
-                            // },
                             {
-                                x: "20/08",
+                                x: "20/07",
+                                x2: "17/08",
+                                borderColor: "#000",
+                                label: {
+                                    style: {
+                                        color: '#008ffb',
+                                    },
+                                    text: '2. Overschatting model Dansen met Janssen',
+                                }
+                            },
+                            {
+                                x: "22/08",
                                 x2: "27/09",
                                 borderColor: "#000",
                                 label: {
                                     style: {
                                         color: '#ff6178',
                                     },
-                                    text: 'Verlaat effect Dansen met Janssen',
+                                    text: '3. Verlaat effect Dansen met Janssen',
                                     // orientation: 'horizontal',
                                 }
                             },

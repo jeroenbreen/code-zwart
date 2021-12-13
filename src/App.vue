@@ -7,6 +7,7 @@ import Infections from "./components/infections/Infections";
 import { getJson, getSourceTimeline, getRTimeline } from "@/utils/csv";
 import { ref } from "vue";
 import {dateToLabel} from "./utils/date";
+import { differenceInDays } from "date-fns";
 
 export default {
     name: "App",
@@ -20,8 +21,21 @@ export default {
         const store = useStore();
         const loaded = ref(false);
 
+        const getToday = (data) => {
+            const nl = data[0];
+            let date = "";
+            for (const key in nl) {
+                date = key;
+            }
+            return date;
+        }
+
         getJson("https://raw.githubusercontent.com/mzelst/covid-19/master/data/municipality-totals.csv").then((data) => {
-            const days = store.state.weeksSource * 7;
+            const today = getToday(data);
+            const startingDay = "2021-06-08";
+            const weeks = Math.floor(differenceInDays(new Date(today), new Date(startingDay)) / 7);
+            store.commit("setProperty", {key: "weeksSource", value: weeks});
+            const days = 7 * weeks;
             const sourceTimeline = getSourceTimeline(data, days);
             const todayLabel = dateToLabel(sourceTimeline[sourceTimeline.length - 1].date);
             store.commit("setProperty", {key: "todayLabel", value: todayLabel});
@@ -41,7 +55,7 @@ export default {
                     if (item) {
                         realOccupation.push({
                             date: day.date,
-                            occupation: Number(item.IC_Bedden_COVID)
+                            occupation: Number(item.IC_Bedden_COVID_Nederland)
                         });
                     } else {
                         // console.log("not found", day.date);
@@ -68,7 +82,7 @@ export default {
         const setOccupationReference = (data, date) => {
             const item = data.find(d => d.date === date);
             if (item) {
-                const occupationReference = Number(item.IC_Bedden_COVID);
+                const occupationReference = Number(item.IC_Bedden_COVID_Nederland);
                 store.commit("setProperty", {key: "occupationReference", value: occupationReference});
             }
         }

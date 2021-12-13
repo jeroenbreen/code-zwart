@@ -4,7 +4,7 @@ import RTools from "./RTools";
 
 export default {
   name: "R",
-  components: { RGraph, RTools },
+  components: { RTools, RGraph },
   props: {},
   setup() {
     return {};

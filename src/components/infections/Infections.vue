@@ -2,6 +2,7 @@
 import VueApexCharts from "vue3-apexcharts";
 import {computed} from "vue";
 import {useStore} from "vuex";
+import {dateToLabel} from "../../utils/date";
 
 export default {
     name: "Infections",
@@ -29,10 +30,7 @@ export default {
                         },
                     },
                     xaxis: {
-                        categories: store.getters.timeline.map((o) => {
-                            const date = o.date.split("-");
-                            return date[2] + "/" + date[1];
-                        }),
+                        categories: store.getters.timeline.map((i) => dateToLabel(i.date)),
                         tickAmount: 5,
                     },
                     yaxis: {
@@ -52,9 +50,9 @@ export default {
                                 borderColor: '#000',
                                 label: {
                                     style: {
-                                        color: '#008ffb',
+                                        color: '#ff6178',
                                     },
-                                    text: 'Dansen met Janssen'
+                                    text: '1. Dansen met Janssen'
                                 }
                             }, {
                                 x: store.state.todayLabel,
@@ -71,8 +69,18 @@ export default {
                 },
                 series: [
                     {
-                        name: "Infecties",
-                        data: store.getters.timeline.map((o) => o.infections),
+                        name: "Infecties [werkelijk]",
+                        data: store.getters.timeline.map((i) => {
+                            return !i.modeled ? i.infections : null
+                        }),
+                        color: "#ff6178"
+                    },
+                    {
+                        name: "Infecties [model]",
+                        data: store.getters.timeline.map((i) => {
+                            return i.modeled ? i.infections : null
+                        }),
+                        color: "#008ffb"
                     },
                 ],
             };

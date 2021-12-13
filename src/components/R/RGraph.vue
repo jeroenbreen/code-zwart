@@ -32,9 +32,10 @@ export default {
                         },
                     },
                     xaxis: {
-                        categories: store.state.rTimeline.map((w) => {
-                            return dateToLabel(w.date);
+                        categories: store.getters.timeline.map((o) => {
+                            return dateToLabel(o.date);
                         }),
+                        tickAmount: 5,
                     },
                     tooltip: {
                         // enabled: false,
@@ -45,9 +46,6 @@ export default {
                         labels: {
                             offsetX: -10,
                         },
-                    },
-                    stroke: {
-                        curve: "smooth",
                     },
                     annotations: {
                         yaxis: [
@@ -73,7 +71,10 @@ export default {
                 series: [
                     {
                         name: "Reproductie-getal",
-                        data: store.state.rTimeline.map((w) => w.r),
+                        data: store.getters.timeline.map((o) => {
+                            return o.r;
+                        }),
+                        color: "#000"
                     },
                 ],
             };
